@@ -12,7 +12,7 @@ endif
 
 augroup classpath
   autocmd!
-  autocmd FileType clojure
+  autocmd FileType clojure,groovy,java,scala
         \ if expand('%:p') =~# '^zipfile:' |
         \   let &l:path = getbufvar('#', '&path') |
         \ else |
