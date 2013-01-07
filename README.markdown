@@ -1,7 +1,9 @@
 # classpath.vim
 
 This plugin sets the `'path'` for JVM languages to match the class path of
-your current Java project.  I originally wrote it for Clojure,
+your current Java project.  This lets commands like `:find` and `gf` work as
+designed.  I originally wrote it for Clojure, but I see no reason why it
+wouldn't be handy for other languages as well.
 
 Currently, [Maven][] and [Leiningen][] are supported, with a fallback to
 `$CLASSPATH` if neither applies.  [Open an issue][GitHub issues] if you have
