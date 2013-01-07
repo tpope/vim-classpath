@@ -7,6 +7,9 @@ Currently, [Maven][] and [Leiningen][] are supported, with a fallback to
 `$CLASSPATH` if neither applies.  [Open an issue][GitHub issues] if you have
 ideas for supporting another project management system.
 
+Included is a `:Java` command, which executes `java` (or `$JAVA_CMD`) with the
+current buffer's `'path'` as the class path.
+
 [Maven]: http://maven.apache.org/
 [Leiningen]: https://github.com/technomancy/leiningen
 [GitHub issues]: https://github.com/tpope/vim-classpath/issues

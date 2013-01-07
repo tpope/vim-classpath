@@ -17,7 +17,8 @@ augroup classpath
         \   let &l:path = getbufvar('#', '&path') |
         \ else |
         \   let &l:path = classpath#detect() |
-        \ endif
+        \ endif |
+        \ command! -buffer -nargs=+ -complete=file Java execute '!'.classpath#java_cmd().' '.<q-args>
 augroup END
 
 " vim:set et sw=2:

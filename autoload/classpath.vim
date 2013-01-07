@@ -130,4 +130,9 @@ function! classpath#detect(...) abort
   endif
 endfunction
 
+function! classpath#java_cmd(...)
+  let path = classpath#from_vim(a:0 ? a:1 : &path)
+  return (exists('$JAVA_CMD') ? $JAVA_CMD : 'java') . ' -cp '.shellescape(path)
+endfunction
+
 " vim:set et sw=2:
