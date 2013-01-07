@@ -1,7 +1,7 @@
 " classpath.vim - Set 'path' from the Java class path
 " Maintainer:   Tim Pope <http://tpo.pe/>
 
-if exists('g:no_foreplay_classpath') || exists("g:loaded_classpath") || v:version < 700 || &cp
+if exists("g:loaded_classpath") || v:version < 700 || &cp
   finish
 endif
 let g:loaded_classpath = 1
