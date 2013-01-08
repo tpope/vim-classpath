@@ -28,6 +28,26 @@ then simply copy and paste:
 Once help tags have been generated, you can view the manual with
 `:help classpath`.
 
+## FAQ
+
+> Why does it take so long for Vim to startup?
+
+The short answer is because the JVM is slow.
+
+The first time you load a Clojure file from any given project, classpath.vim
+sets about trying to determine your class path, leveraging either
+`lein classpath` or `mvn dependency:build-classpath`.  This takes a couple of
+seconds or so in the best case scenario, and potentially much longer if it
+decides to hit the network.
+
+Because the class path is oh-so-expensive to retrieve, classpath.vim caches it
+in `g:CLASSPATH_CACHE`.  By default, this disappears when you exit Vim, but
+you can save it across sessions in `.viminfo` with this handy option:
+
+    set viminfo+=!
+
+The cache is expired when the timestamp on `project.clj` or `pom.xml` changes.
+
 ## Contributing
 
 See the contribution guidelines for

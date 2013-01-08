@@ -7,7 +7,7 @@ endif
 let g:loaded_classpath = 1
 
 if &viminfo !~# '!'
-  set viminfo+=!
+  set viminfo^=!
 endif
 
 augroup classpath
