@@ -60,23 +60,21 @@ function! classpath#detect(...) abort
 
   let previous = ""
   while root !=# previous
-    if isdirectory(root . '/src')
-      if filereadable(root . '/project.clj')
-        let file = 'project.clj'
-        let cmd = 'lein classpath'
-        let pattern = "[^\n]*\\ze\n*$"
-        let default = join(map(['test', 'src', 'dev-resources', 'resources', 'target'.sep.'classes'], 'escape(root . sep . v:val, ", ")'), ',')
-        let base = ''
-        break
-      endif
-      if filereadable(root . '/pom.xml')
-        let file = 'pom.xml'
-        let cmd = 'mvn dependency:build-classpath'
-        let pattern = '\%(^\|\n\)\zs[^[].\{-\}\ze\n'
-        let base = escape(root.sep.'src'.sep.'*'.sep.'*', ', ') . ','
-        let default = base . default
-        break
-      endif
+    if filereadable(root . '/project.clj') && join(readfile(root . '/project.clj', '', 50), "\n") =~# '(\s*defproject'
+      let file = 'project.clj'
+      let cmd = 'lein classpath'
+      let pattern = "[^\n]*\\ze\n*$"
+      let default = join(map(['test', 'src', 'dev-resources', 'resources', 'target'.sep.'classes'], 'escape(root . sep . v:val, ", ")'), ',')
+      let base = ''
+      break
+    endif
+    if filereadable(root . '/pom.xml')
+      let file = 'pom.xml'
+      let cmd = 'mvn dependency:build-classpath'
+      let pattern = '\%(^\|\n\)\zs[^[].\{-\}\ze\n'
+      let base = escape(root.sep.'src'.sep.'*'.sep.'*', ', ') . ','
+      let default = base . default
+      break
     endif
     let previous = root
     let root = fnamemodify(root, ':h')
