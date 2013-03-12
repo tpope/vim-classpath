@@ -41,12 +41,8 @@ seconds or so in the best case scenario, and potentially much longer if it
 decides to hit the network.
 
 Because the class path is oh-so-expensive to retrieve, classpath.vim caches it
-in `g:CLASSPATH_CACHE`.  By default, this disappears when you exit Vim, but
-you can save it across sessions in `.viminfo` with this handy option:
-
-    set viminfo+=!
-
-The cache is expired when the timestamp on `project.clj` or `pom.xml` changes.
+in `~/.cache/vim/classpath`.  The cache is expired when the timestamp on
+`project.clj` or `pom.xml` changes.
 
 ## Contributing
 
