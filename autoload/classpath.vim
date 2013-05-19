@@ -100,7 +100,7 @@ function! classpath#detect(...) abort
     unlet! g:CLASSPATH_CACHE
   endif
 
-  let cache = expand(g:classpath_cache . '/') . substitute(root, '[\/]', '%', 'g')
+  let cache = expand(g:classpath_cache . '/') . substitute(root, '[:\/]', '%', 'g')
   let disk = getftime(root . sep . file)
 
   if exists('g:CLASSPATH_CACHE') && has_key(g:CLASSPATH_CACHE, root)
