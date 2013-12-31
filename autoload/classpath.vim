@@ -79,7 +79,7 @@ function! classpath#detect(...) abort
     if filereadable(root . '/pom.xml')
       let file = 'pom.xml'
       let cmd = 'mvn dependency:build-classpath'
-      let pattern = '\%(^\|\n\)\zs[^[].\{-\}\ze\n'
+      let pattern = '\%(^\|classpath:\n\)\zs[^[].\{-\}\ze\n'
       let base = escape(root.sep.'src'.sep.'*'.sep.'*', ', ') . ','
       let default = base . default
       break
