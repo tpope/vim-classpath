@@ -80,7 +80,13 @@ function! classpath#detect(...) abort
       let file = 'pom.xml'
       let cmd = 'mvn dependency:build-classpath'
       let pattern = '\%(^\|classpath:\n\)\zs[^[].\{-\}\ze\n'
-      let base = escape(root.sep.'src'.sep.'*'.sep.'*', ', ') . ','
+      let base = ''
+      for line in filter(readfile(root . '/pom.xml'), 'v:val =~# "<directory>.*</directory>"')
+        let base .= escape(root.sep.matchstr(line, '<directory>\zs.*\ze</directory>'), ', ').','
+      endfor
+      if empty(base)
+        let base = escape(root.sep.'src'.sep.'*'.sep.'*', ', ') . ','
+      endif
       let default = base . default
       break
     endif
