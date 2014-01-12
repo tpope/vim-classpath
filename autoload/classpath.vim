@@ -94,7 +94,7 @@ function! classpath#detect(...) abort
     let root = fnamemodify(root, ':h')
   endwhile
 
-  if !exists('file')
+  if !exists('cmd') || !executable(matchstr(cmd, '^\S\+'))
     if a:0 > 1 && a:2 ==# 'keep'
       return ''
     else
