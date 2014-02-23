@@ -139,15 +139,15 @@ function! classpath#detect(...) abort
     let match = matchstr(out, pattern)
     if !v:shell_error && exists('out') && out !=# ''
       let path = base . classpath#to_vim(match)
-      call writefile([path], cache)
-      return path
     else
       echohl WarningMSG
       echomsg "Couldn't determine class path."
       echohl NONE
       echo out
-      return default
+      let path = default
     endif
+    call writefile([path], cache)
+    return path
   endif
 endfunction
 
