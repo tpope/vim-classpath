@@ -102,21 +102,8 @@ function! classpath#detect(...) abort
     endif
   endif
 
-  if exists('g:CLASSPATH_CACHE') && (type(g:CLASSPATH_CACHE) != type({}) || empty(g:CLASSPATH_CACHE))
-    unlet! g:CLASSPATH_CACHE
-  endif
-
   let cache = expand(g:classpath_cache . '/') . substitute(root, '[:\/]', '%', 'g')
   let disk = getftime(root . sep . file)
-
-  if exists('g:CLASSPATH_CACHE') && has_key(g:CLASSPATH_CACHE, root)
-    let [when, last, path] = split(g:CLASSPATH_CACHE[root], "\t")
-    call remove(g:CLASSPATH_CACHE, root)
-    if last ==# disk
-      call writefile([path], cache)
-      return path
-    endif
-  endif
 
   if getftime(cache) >= disk
     return join(readfile(cache), classpath#separator())
