@@ -16,4 +16,15 @@ or Leiningen for the class path.  If neither is available, $CLASSPATH is used.
 :Java [args]            Execute $JAVA_CMD (default: java) with a class path
                         derived from the current buffer's path.
 
+OFFLINE MODE                                    *g:classpath_offline*
+
+By default when opening files the dependencies in 'project.clj' and 'pom.xml'
+are downloaded which can be a security risk as well as leading to a hang when
+the repositories are not reachable.
+To prevent this add the following to your vimrc: >
+
+    let g:classpath_offline = 1
+
+In this case the plugin falls back to `$CLASSPATH`.
+
  vim:tw=78:et:ft=help:norl:

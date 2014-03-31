@@ -28,6 +28,12 @@ then simply copy and paste:
 Once help tags have been generated, you can view the manual with
 `:help classpath`.
 
+By default when opening files the dependencies in `project.clj` and `pom.xml`
+are downloaded which can be a security risk as well as leading to a hang when
+the repositories are not reachable.
+To prevent this add `let g:classpath_offline = 1` to your `vimrc`.
+In this case the plugin falls back to `$CLASSPATH`.
+
 ## FAQ
 
 > Why does it take so long for Vim to startup?
