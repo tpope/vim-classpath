@@ -6,10 +6,6 @@ if exists("g:loaded_classpath") || v:version < 700 || &cp
 endif
 let g:loaded_classpath = 1
 
-if &viminfo !~# '!'
-  set viminfo^=!
-endif
-
 augroup classpath
   autocmd!
   autocmd FileType clojure,groovy,java,scala
