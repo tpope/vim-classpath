@@ -8,7 +8,7 @@ let g:loaded_classpath = 1
 
 augroup classpath
   autocmd!
-  autocmd FileType clojure,groovy,java,scala
+  autocmd FileType clojure,groovy,java,scala,kotlin
         \ if expand('%:p') =~# '^zipfile:' |
         \   let &l:path = getbufvar('#', '&path') |
         \ else |
