@@ -26,12 +26,18 @@ function! classpath#split(cp) abort
   return split(a:cp, classpath#separator())
 endfunction
 
-function! classpath#to_vim(cp) abort
+function! classpath#to_vim(cp, ...) abort
   let path = []
   for elem in classpath#split(a:cp)
-    let path += [elem ==# '.' ? '' : elem]
+    if elem ==# '.'
+      call add(path, a:0 ? a:1 : '')
+    elseif elem =~# '^[\/]\|^\a\+:' || !a:0
+      call add(path, elem)
+    else
+      call add(path, a:1 . classpath#file_separator() . elem)
+    endif
   endfor
-  if a:cp =~# '\(^\|:\)\.$'
+  if a:cp =~# '\(^\|:\)\.$' && !a:0
     let path += ['']
   endif
   return join(map(path, 'escape(v:val, ", ")'), ',')
@@ -90,6 +96,13 @@ function! classpath#detect(...) abort
       let default = base . default
       break
     endif
+    if filereadable(root . '/deps.edn')
+      let file = 'deps.edn'
+      let cmd = 'clojure -Spath'
+      let pattern = "[^\n]*\\ze\n*$"
+      let base = ''
+      break
+    endif
     let previous = root
     let root = fnamemodify(root, ':h')
   endwhile
@@ -125,7 +138,7 @@ function! classpath#detect(...) abort
     endtry
     let match = matchstr(out, pattern)
     if !v:shell_error && exists('out') && out !=# ''
-      let path = base . classpath#to_vim(match)
+      let path = base . classpath#to_vim(match, dir)
     else
       echohl WarningMSG
       echomsg "Couldn't determine class path."
