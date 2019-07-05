@@ -125,7 +125,7 @@ function! classpath#detect(...) abort
       if &verbose
         echomsg 'Determining class path with '.cmd.' ...'
       endif
-      let cd = exists('*haslocaldir') && haslocaldir() ? 'lcd' : exists(':tcd') && haslocaldir(-1) ? 'tcd' : 'cd'
+      let cd = exists('*haslocaldir') && haslocaldir() ? 'lcd ' : exists(':tcd') && haslocaldir(-1) ? 'tcd ' : 'cd '
       let dir = getcwd()
       try
         execute cd . fnameescape(root)
