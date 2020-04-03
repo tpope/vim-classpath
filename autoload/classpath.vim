@@ -62,6 +62,7 @@ function! classpath#detect(...) abort
   let sep = classpath#file_separator()
 
   let buffer = a:0 ? a:1 : '%'
+  let refresh = a:0 >= 2 ? a:2 : 0
   let default = $CLASSPATH ==# '' ? ',' : classpath#to_vim($CLASSPATH)
   let root = getbufvar(buffer, 'java_root')
   if root ==# ''
@@ -118,10 +119,13 @@ function! classpath#detect(...) abort
   let cache = expand(g:classpath_cache . '/') . substitute(root, '[:\/]', '%', 'g')
   let disk = getftime(root . sep . file)
 
-  if getftime(cache) >= disk
+  if getftime(cache) >= disk && !refresh
     return join(readfile(cache), classpath#separator())
   else
     try
+      if refresh
+        echomsg 'Refreshing classpath ...'
+      endif
       if &verbose
         echomsg 'Determining class path with '.cmd.' ...'
       endif
