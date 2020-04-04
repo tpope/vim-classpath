@@ -123,9 +123,6 @@ function! classpath#detect(...) abort
     return join(readfile(cache), classpath#separator())
   else
     try
-      if refresh
-        echomsg 'Refreshing classpath ...'
-      endif
       if &verbose
         echomsg 'Determining class path with '.cmd.' ...'
       endif
