@@ -6,6 +6,10 @@ if exists("g:autoloaded_classpath")
 endif
 let g:autoloaded_classpath = 1
 
+if !exists('g:classpath_offline')
+  let g:classpath_offline = 0
+endif
+
 if !exists('g:classpath_cache')
   let g:classpath_cache = '~/.cache/vim/classpath'
 endif
@@ -64,6 +68,11 @@ function! classpath#detect(...) abort
   let buffer = a:0 ? a:1 : '%'
   let refresh = a:0 >= 2 ? a:2 : 0
   let default = $CLASSPATH ==# '' ? ',' : classpath#to_vim($CLASSPATH)
+
+  if g:classpath_offline
+    return default
+  fi
+
   let root = getbufvar(buffer, 'java_root')
   if root ==# ''
     let root = simplify(fnamemodify(bufname(buffer), ':p:s?[\/]$??'))
